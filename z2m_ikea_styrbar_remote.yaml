@@ -63,28 +63,6 @@ action:
   - variables:
       command: "{{ trigger.to_state.state }}"
   - choose:
-      # ---------------------------- TURN ON OR OFF ---------------------------- #
-      - conditions: "{{ command == 'on' }}"
-        sequence:
-          - choose:
-              - conditions: "{{ force_brightness }}"
-                sequence:
-                  - service: light.turn_on
-                    target: !input light
-                    data:
-                      transition: 1
-                      brightness_pct: !input brightness
-            default:
-              - service: light.turn_on
-                target: !input light
-                data:
-                  transition: 1
-      - conditions: "{{ command == 'off' }}"
-        sequence:
-          - service: light.turn_off
-            target: !input light
-            data:
-              transition: 1
       # ------------------- INCREASE OR DECREASE BRIGHTNESS -------------------- #
       # High - Click and hold
       - conditions: "{{ command == 'brightness_move_up' }}"
@@ -118,20 +96,3 @@ action:
                     transition: 0.5
                   target: !input light
                 - delay: 0.5
-      # # ------------------------ MAX OR MIN BRIGHTNESS ------------------------ #
-      # Lowest
-      - conditions: "{{ command == 'arrow_left_click' }}"
-        sequence:
-          - service: light.turn_on
-            target: !input light
-            data:
-              brightness_pct: 10
-              transition: 1
-      # Highest
-      - conditions: "{{ command == 'arrow_right_click' }}"
-        sequence:
-          - service: light.turn_on
-            target: !input light
-            data:
-              brightness_pct: 100
-              transition: 1
