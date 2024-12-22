@@ -76,7 +76,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    brightness_step_pct: 2
+                    brightness_step_pct: 3
                     transition: 0.5
                   target: !input light
                 - delay: 0.25
@@ -92,7 +92,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    brightness_step_pct: -2
+                    brightness_step_pct: -3
                     transition: 0.5
                   target: !input light
                 - delay: 0.25
